@@ -20,12 +20,12 @@ int main(int argc, const char * argv[]) {
         
         while (gameOn){
             
-            [scorekeeper score];
+            // ask question
             AdditionQuestion *question = [[AdditionQuestion alloc]init];
             NSLog(@"Your question is: %@", question.question);
             NSString *inputString = [InputHandler cleanInput];
             
-            //check 'quit' when input is a string
+            // check 'quit' when input is a string
             if ([inputString isEqualToString:@"quit"])
             {
                 gameOn = NO;
@@ -33,26 +33,33 @@ int main(int argc, const char * argv[]) {
                 break;
             }
             
-            //need to convert input to NSInteger to compare to answer property
-            NSInteger inputNumber = inputString.integerValue;
-            NSLog(@"The answer you gave is: %li", inputNumber);
-            
-            if (inputNumber == question.answer)
+            // else check answer
+            else
             {
-                scorekeeper.right += 1;
-                NSLog(@"You are correct!");
-            }
-            
-            if (inputNumber != question.answer)
-            {
-                scorekeeper.wrong += 1;
-                NSLog(@"You are wrong!");
+                // need to convert input to NSInteger to compare to answer property
+                NSInteger inputNumber = inputString.integerValue;
+                NSLog(@"The answer you gave is: %li", inputNumber);
+                
+                // check answer
+                // right
+                if (inputNumber == question.answer)
+                {
+                    scorekeeper.right += 1;
+                    NSLog(@"You are correct!");
+                }
+                
+                // not right
+                else
+                {
+                    scorekeeper.wrong += 1;
+                    NSLog(@"You are wrong!");
+                }
+                    
+                // log updated score
+                [scorekeeper score];
+                
             }
         }
-        
-        
-        
-        
     }
     return 0;
 }
